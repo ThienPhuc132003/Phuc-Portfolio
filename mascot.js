@@ -9,17 +9,24 @@ try{
  const scene=new THREE.Scene();const camera=new THREE.OrthographicCamera(-2,2,2.7,-2.7,.1,40);camera.position.set(0,0,12);camera.lookAt(0,0,0);
  const character=new THREE.Group();scene.add(character);
  const material=(color,roughness=.34)=>new THREE.MeshStandardMaterial({color,roughness,metalness:.08});
- const navy=material(0x213a62),dark=material(0x172338),red=material(0xd93648),skin=material(0xf5c0a4),white=material(0xfff9ee),black=material(0x101725,.25),blue=material(0x86b7da);
+ const navy=material(0x293d58),dark=material(0x17191f),skin=material(0xe9b69a),white=material(0xf3f2ea),black=material(0x17181c,.25),blue=material(0x416e9c),hair=material(0x202025,.55),lip=material(0x9c6456);
  const sphere=(mat,x,y,z,sx,sy,sz)=>{const m=new THREE.Mesh(new THREE.SphereGeometry(1,32,24),mat);m.position.set(x,y,z);m.scale.set(sx,sy,sz);character.add(m);return m};
  const capsule=(mat,a,b,r)=>{const start=new THREE.Vector3(...a),end=new THREE.Vector3(...b),delta=end.clone().sub(start);const m=new THREE.Mesh(new THREE.CapsuleGeometry(r,Math.max(.01,delta.length()-2*r),8,16),mat);m.position.copy(start).add(end).multiplyScalar(.5);m.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),delta.normalize());character.add(m);return m};
- // Abstract toy-like form: a rounded blue body, large eyes, round glasses and parted hair.
- sphere(navy,0,-.65,0,.95,1.08,.65);sphere(blue,0,-.45,.49,.74,.58,.2);
- sphere(skin,0,.78,.12,.82,.74,.58);sphere(skin,-.79,.73,.1,.16,.24,.16);sphere(skin,.79,.73,.1,.16,.24,.16);
- for(const x of [-.34,.34]){sphere(white,x,.8,.63,.28,.31,.13);sphere(black,x,.78,.75,.12,.15,.08);sphere(white,x-.035,.84,.82,.035,.045,.025);const frame=new THREE.Mesh(new THREE.TorusGeometry(.30,.027,10,48),dark);frame.position.set(x,.8,.72);character.add(frame)}
- capsule(dark,[-.04,.8,.73],[.04,.8,.73],.035);
- const hairL=sphere(dark,-.39,1.32,.23,.49,.32,.48);hairL.rotation.z=-.4;const hairR=sphere(dark,.39,1.32,.23,.49,.32,.48);hairR.rotation.z=.4;sphere(dark,0,1.36,-.12,.76,.25,.49);
- sphere(red,-.78,-.65,.02,.24,.36,.25);sphere(red,.78,-.65,.02,.24,.36,.25);capsule(red,[-.82,-.65,.03],[-1.11,-1.09,.15],.15);capsule(red,[.82,-.65,.03],[1.12,-.95,.17],.15);sphere(skin,-1.12,-1.12,.16,.16,.17,.15);sphere(skin,1.13,-.97,.17,.16,.17,.15);
- capsule(navy,[-.43,-1.4,0],[-.46,-1.93,.08],.17);capsule(navy,[.43,-1.4,0],[.46,-1.93,.08],.17);sphere(dark,-.48,-2.03,.2,.32,.16,.36);sphere(dark,.48,-2.03,.2,.32,.16,.36);
+ // A stylized, fully 3D mascot based on the reference: center-parted dark hair, glasses and a blue-and-white raglan shirt.
+ sphere(white,0,-.65,0,.73,.87,.46);sphere(blue,0,-.15,.02,.54,.21,.44);
+ sphere(skin,0,.78,.12,.78,.72,.56);sphere(skin,-.73,.67,.12,.13,.20,.13);sphere(skin,.73,.67,.12,.13,.20,.13);
+ for(const x of [-.31,.31]){sphere(white,x,.82,.62,.245,.22,.09);sphere(black,x,.81,.705,.095,.115,.06);sphere(white,x-.025,.85,.756,.025,.03,.015);const frame=new THREE.Mesh(new THREE.TorusGeometry(.27,.026,10,48),dark);frame.position.set(x,.82,.68);frame.scale.y=.92;character.add(frame)}
+ capsule(dark,[-.04,.82,.70],[.04,.82,.70],.025);sphere(skin,0,.56,.68,.07,.08,.06);
+ const smile=new THREE.Mesh(new THREE.TorusGeometry(.16,.018,8,32,Math.PI),lip);smile.rotation.z=Math.PI;smile.position.set(0,.40,.66);character.add(smile);
+ sphere(hair,0,1.22,-.02,.79,.42,.55);
+ const hairL=sphere(hair,-.37,1.31,.34,.44,.27,.30);hairL.rotation.z=-.36;
+ const hairR=sphere(hair,.37,1.31,.34,.44,.27,.30);hairR.rotation.z=.36;
+ const lockL=sphere(hair,-.53,1.15,.38,.24,.28,.20);lockL.rotation.z=-.5;
+ const lockR=sphere(hair,.53,1.15,.38,.24,.28,.20);lockR.rotation.z=.5;
+ capsule(blue,[-.62,-.30,.02],[-.85,-1.06,.12],.18);capsule(blue,[.62,-.30,.02],[.85,-1.06,.12],.18);
+ sphere(skin,-.87,-1.10,.13,.14,.16,.13);sphere(skin,.87,-1.10,.13,.14,.16,.13);
+ capsule(navy,[-.34,-1.31,0],[-.38,-1.95,.08],.16);capsule(navy,[.34,-1.31,0],[.38,-1.95,.08],.16);
+ sphere(dark,-.40,-2.02,.19,.28,.14,.32);sphere(dark,.40,-2.02,.19,.28,.14,.32);
  scene.add(new THREE.HemisphereLight(0xffffff,0x607291,2.5));const key=new THREE.DirectionalLight(0xffffff,3);key.position.set(-3,5,8);scene.add(key);const rim=new THREE.DirectionalLight(0xf4a3af,1.5);rim.position.set(4,1,2);scene.add(rim);
  let frame=0,visible=true;const pointer={x:0,y:0},clock=new THREE.Clock();
  function resize(){const w=slot.clientWidth,h=slot.clientHeight;if(!w||!h)return;renderer.setSize(w,h,false);const half=2.65;camera.top=half;camera.bottom=-half;camera.left=-half*w/h;camera.right=half*w/h;camera.updateProjectionMatrix();renderer.render(scene,camera)}
