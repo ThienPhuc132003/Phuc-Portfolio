@@ -1,6 +1,6 @@
 # Portfolio của Thiên Phúc — kế hoạch triển khai
 
-Cập nhật: 04/11/2026. Tài liệu này ghi lại hướng hiện tại để tiếp tục công việc; các quyết định mới của chủ portfolio có ưu tiên cao hơn.
+Cập nhật: 05/11/2026. Tài liệu này ghi lại hướng hiện tại để tiếp tục công việc; các quyết định mới của chủ portfolio có ưu tiên cao hơn.
 
 ## Mục tiêu và định hướng
 
@@ -12,13 +12,13 @@ Dùng CSS và GSAP/ScrollTrigger cho motion; cuộn tự do, chữ và liên k�
 
 ## Trạng thái và điểm cần xác nhận
 
-- Bản đang xem: `concept-preview/digital-worlds-v2/`, chạy bằng `python -m http.server 8765` từ gốc repo. Đây là bản thử chưa được duyệt hoàn chỉnh, chưa phải website public.
+- Bản được duyệt và phát hành là website ở gốc repo, tại https://thienphuc132003.github.io/Phuc-Portfolio/. `concept-preview/digital-worlds-v2/` là bản thử cũ; `new_site/` là bản riêng chưa được theo dõi trong Git, không tự coi là bản phát hành.
 - Bản tham khảo bố cục ảnh: `concept-preview/index.html`. Ảnh dự án hiện có trong `assets/`. Bản concept cũ có mascot và các quyết định đã lỗi thời; chỉ tham khảo cách đặt ảnh.
 - Chủ portfolio đã chọn **hero A, nền xanh lá nổi bật**, dùng ảnh thật. Tiếp tục tinh chỉnh hướng này khi cần.
 - Các file trong `concept-preview/` đang untracked; kiểm tra `git status` trước khi sửa, giữ lại công việc hiện có. Figma Portfolio2 chứa các hướng cũ có mascot, không xem đó là thiết kế cuối.
-- Tạm không làm PDF, không đưa bản thử lên public trước khi chủ portfolio duyệt bản đầy đủ. GitHub Pages là đích triển khai sau duyệt; không dùng hosting Codex GPT.
-- Bản local đã bổ sung ba trang case study, About và form mở email; ngôn ngữ được giữ trong cùng phiên trình duyệt. Chủ portfolio đã duyệt hướng thiết kế để tiếp tục hoàn thiện. Đã kiểm tra link nội bộ, chuyển ngôn ngữ giữa trang, điều hướng bàn phím cơ bản và xem một số màn hình desktop/mobile. Vẫn cần kiểm tra reduced motion và duyệt bản phát hành cuối.
-- Hai bản PDF nháp tại `output/pdf/thien-phuc-portfolio-en.pdf` và `output/pdf/thien-phuc-portfolio-vi.pdf`; đã render và kiểm tra bốn trang mỗi bản, trích xuất chữ và xác nhận đích liên kết. Script tạo lại: `scripts/generate_portfolio_review_pdf.py` bằng Python có ReportLab. Đã gắn nút tải vào bản local; cần duyệt PDF và điều chỉnh đường dẫn khi đóng gói phát hành.
+- Chủ portfolio đã duyệt website và PDF để phát hành. GitHub Pages là nơi triển khai; không dùng hosting Codex GPT.
+- Website đã có ba trang case study, About và form mở email; ngôn ngữ được giữ trong cùng phiên trình duyệt. Đã kiểm tra chuyển ngôn ngữ, điều hướng bàn phím cơ bản và bố cục desktop/mobile.
+- Hai PDF phát hành trong `downloads/`; đã xem bốn trang mỗi bản, kiểm tra trích xuất chữ và liên kết. Script tạo lại: `scripts/generate_portfolio_review_pdf.py` bằng Python có ReportLab.
 
 ## Công việc theo thứ tự
 
@@ -45,3 +45,5 @@ Dùng CSS và GSAP/ScrollTrigger cho motion; cuộn tự do, chữ và liên k�
 - Chủ portfolio đã duyệt website và hai PDF để chuẩn bị phát hành. Bản hiện tại tiếp tục sửa theo đánh giá: font tiếng Việt, điều hướng mobile, nhãn link case study, nhịp motion và nội dung dự án dựa trên thông tin đã xác nhận.
 - Hai PDF bốn trang dùng nhận diện xanh của website; font được nhúng, có chữ trích xuất và liên kết. Source tạo PDF: `scripts/generate_portfolio_review_pdf.py`.
 - Bản đóng gói dùng các đường dẫn tương đối cho GitHub Pages. Cần tiếp tục kiểm tra thực tế sau triển khai và ghi nhận các giới hạn kiểm thử.
+
+- Kiểm tra lại ngày 05/11/2026 trên bản công khai: mô phỏng reduced motion trong Chromium cho thấy không có ScrollTrigger đang chạy, cả ba dự án vẫn hiển thị; không tràn ngang tại 320, 390, 768 và 1440px. Tab qua điều hướng đầu trang có focus; tắt JavaScript vẫn đọc được nội dung và thấy liên kết đến các case study. Các kiểm tra này không thay thế kiểm thử thực tế trên mọi thiết bị.
