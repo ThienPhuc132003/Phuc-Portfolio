@@ -1,4 +1,6 @@
 from pathlib import Path
+from io import BytesIO
+from PIL import Image
 from reportlab.pdfgen import canvas
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -47,8 +49,13 @@ def txt(c,text,x,y,size=9,color=INK,bold=False):
 def line(c,x1,y,x2,color):
  c.setStrokeColor(HexColor(color));c.setLineWidth(.5);c.line(x1,y,x2,y)
 
+def jpeg_reader(path):
+ with Image.open(path) as source:
+  buffer=BytesIO();source.convert('RGB').save(buffer,format='JPEG',quality=93,subsampling=0,optimize=True)
+  buffer.seek(0);return ImageReader(buffer)
+
 def image(c,file,x,y,w,h):
- im=ImageReader(str(ROOT/'assets'/file)); iw,ih=im.getSize(); scale=min(w/iw,h/ih);dw=iw*scale;dh=ih*scale
+ im=jpeg_reader(ROOT/'assets'/file); iw,ih=im.getSize(); scale=min(w/iw,h/ih);dw=iw*scale;dh=ih*scale
  c.saveState();path=c.beginPath();path.rect(x,y,w,h);c.clipPath(path,stroke=0);c.drawImage(im,x+(w-dw)/2,y+(h-dh)/2,width=dw,height=dh,mask='auto');c.restoreState()
 
 def render(lang):
@@ -59,7 +66,7 @@ def render(lang):
  txt(c,d['role'],margin,H-104,8.3,MUTED,True)
  for i,t in enumerate(d['hero']):txt(c,t,margin,H-165-i*56,47,INK,True)
  c.saveState();shape=c.beginPath();shape.roundRect(W-205,H-308,155,205,18);c.clipPath(shape,stroke=0)
- photo=ImageReader(str(ROOT/'phuc-portrait.png'));pw,ph=photo.getSize();scale=max(155/pw,205/ph);dw,dh=pw*scale,ph*scale
+ photo=jpeg_reader(ROOT/'phuc-portrait.png');pw,ph=photo.getSize();scale=max(155/pw,205/ph);dw,dh=pw*scale,ph*scale
  c.drawImage(photo,W-205+(155-dw)/2,H-308+205-dh,width=dw,height=dh,mask='auto');c.restoreState()
  para(c,d['intro'],margin,H-318,inner-50,14,21,INK)
  line(c,margin,H-415,right,'#6d8272');txt(c,d['about_label'],margin,H-441,8,MUTED,True);para(c,d['about'],margin+125,H-429,inner-125,10.5,16,INK)
