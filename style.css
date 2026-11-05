@@ -11,3 +11,6 @@
 @media(max-width:800px){.elysian-layout,.tutor-layout,.about-grid,.contact-grid{grid-template-columns:1fr;gap:40px}.elysian-heading{padding:45px 0 10px}.elysian h2{font-size:clamp(55px,11vw,90px)}.elysian .world-screen,.tutor .world-screen{transform:none;box-shadow:10px 10px 0 #75182d}.elysian .world-screen{box-shadow:10px 10px 0 #d8c7ba}.tutor-layout{padding:55px 0}.about-grid{min-height:0;padding:50px 0}.about h2,.contact h2{margin:0}.contact-grid{padding:55px 0}.email{display:inline-block;margin-top:35px}.section-label,.world-meta{font-size:9px}}
 
 @media(min-width:801px){html[lang="vi"] .hero h1{font-size:clamp(72px,9vw,140px)}}
+
+/* Project shortcuts keep the editorial introduction navigable. */
+.project-index{display:flex;gap:clamp(20px,5vw,72px);flex-wrap:wrap;border-top:1px solid #17201570;padding:20px 0;font-size:11px;letter-spacing:.1em;font-weight:700}.project-index a:hover{text-decoration:underline}.project-index a:focus-visible{outline-color:#172015}.interlude{position:relative}.interlude-fill{position:absolute;inset:0;display:block;transform-origin:left center;background:#b4cace}.red-interlude .interlude-fill{background:#e4c2b4}.interlude-word{position:relative}.portrait-frame img{object-position:center 48%}@media(max-width:800px){.portrait-frame{width:60%;height:90%}.project-index{gap:16px 24px;line-height:1.7}}
