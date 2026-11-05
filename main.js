@@ -1,50 +1,7 @@
-const languageButton = document.getElementById('language');
-let language = 'en';
-try { if (sessionStorage.getItem('portfolio-language') === 'vi') language = 'vi'; } catch (_) {}
-function renderLanguage() {
-  document.documentElement.lang = language;
-  document.querySelectorAll('[data-en][data-vi]').forEach(node => { node.textContent = node.dataset[language]; });
-  languageButton.innerHTML = language === 'en' ? 'EN <span>/ VI</span>' : 'VI <span>/ EN</span>';
-  languageButton.setAttribute('aria-label', language === 'en' ? 'Chuyển sang tiếng Việt' : 'Switch to English');
-  if (window.ScrollTrigger) window.ScrollTrigger.refresh();
-}
-renderLanguage();
-languageButton.addEventListener('click', () => {
-  language = language === 'en' ? 'vi' : 'en';
-  try { sessionStorage.setItem('portfolio-language', language); } catch (_) {}
-  renderLanguage();
-});
-
-if (window.gsap && window.ScrollTrigger) {
-  gsap.registerPlugin(ScrollTrigger);
-  gsap.matchMedia().add('(prefers-reduced-motion: no-preference)', () => {
-    if (document.querySelector('.transition-track')) gsap.fromTo('.transition-track', {x: 90}, {
-      x: -90, ease: 'none', scrollTrigger: {trigger: '.project-transition', start: 'top bottom', end: 'bottom top', scrub: 0.6}
-    });
-    if (document.querySelector('.hero-art')) gsap.to('.hero-art', {
-      y: -55, rotation: -2, ease: 'none', scrollTrigger: {trigger: '.hero', start: 'top top', end: 'bottom top', scrub: 0.7}
-    });
-    gsap.utils.toArray('.world-divider').forEach((divider, index) => {
-      gsap.fromTo(divider.children[1], {rotation: index ? -180 : 180}, {
-        rotation: 0, ease: 'none', scrollTrigger: {trigger: divider, start: 'top bottom', end: 'bottom top', scrub: 0.6}
-      });
-    });
-    gsap.utils.toArray('.project-story').forEach(section => {
-      gsap.fromTo(section.querySelector('.story-media'), {y: 48}, {
-        y: -36, ease: 'none', scrollTrigger: {trigger: section, start: 'top bottom', end: 'bottom top', scrub: 0.7}
-      });
-    });
-    if (document.querySelector('.case-image')) gsap.fromTo('.case-image', {y: 20}, {
-      y: -20, ease: 'none', scrollTrigger: {trigger: '.case-hero', start: 'top bottom', end: 'bottom top', scrub: 0.7}
-    });
-  });
-}
-
-const contactForm = document.getElementById('contact-form');
-if (contactForm) contactForm.addEventListener('submit', event => {
-  event.preventDefault();
-  const fields = new FormData(contactForm);
-  const subject = language === 'vi' ? 'Liên hệ dự án website' : 'Website project inquiry';
-  const body = `${language === 'vi' ? 'Tên' : 'Name'}: ${fields.get('name')}\n${language === 'vi' ? 'Liên hệ' : 'Contact'}: ${fields.get('contact')}\n\n${fields.get('message')}`;
-  window.location.href = `mailto:thienphuc203302@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-});
+const button = document.querySelector('#language');
+let language='en';try{if(sessionStorage.getItem('portfolio-language')==='vi')language='vi'}catch(_){}
+function renderLanguage(){document.documentElement.lang=language;document.querySelectorAll('[data-en][data-vi]').forEach(el=>el.textContent=el.dataset[language]);if(button){button.innerHTML=language==='en'?'EN <span>/ VI</span>':'VI <span>/ EN</span>';button.setAttribute('aria-label',language==='en'?'Chuyển sang tiếng Việt':'Switch to English')}if(window.ScrollTrigger)ScrollTrigger.refresh()}
+renderLanguage();button?.addEventListener('click',()=>{language=language==='en'?'vi':'en';try{sessionStorage.setItem('portfolio-language',language)}catch(_){}renderLanguage()});
+if(window.gsap&&window.ScrollTrigger){gsap.registerPlugin(ScrollTrigger);gsap.matchMedia().add({desktop:'(min-width: 801px) and (prefers-reduced-motion: no-preference)',mobile:'(max-width: 800px) and (prefers-reduced-motion: no-preference)'}, context=>{const mobile=context.conditions.mobile;gsap.from('.hero-heading > *',{y:24,duration:.8,stagger:.08,ease:'power3.out'});if(document.querySelector('.portrait-frame'))gsap.to('.portrait-frame',{y:mobile?-20:-65,scale:1.03,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:.7}});gsap.utils.toArray('.orbit-line span').forEach(el=>gsap.to(el,{x:mobile?60:200,rotation:180,ease:'none',scrollTrigger:{trigger:'.intro',start:'top bottom',end:'bottom top',scrub:.7}}));gsap.utils.toArray('.world h2').forEach((el,i)=>gsap.fromTo(el,{x:mobile?12:(i%2?-65:65)},{x:0,ease:'none',scrollTrigger:{trigger:el.closest('.world'),start:'top bottom',end:'top 20%',scrub:.6}}));gsap.utils.toArray('.world-screen').forEach((el,i)=>gsap.fromTo(el,{y:mobile?15:65},{y:mobile?-10:-40,ease:'none',scrollTrigger:{trigger:el.closest('.world'),start:'top bottom',end:'bottom top',scrub:.7}}));});window.addEventListener('load',()=>ScrollTrigger.refresh())}
+window.gsap && window.ScrollTrigger && gsap.matchMedia().add('(prefers-reduced-motion: no-preference)',()=>{gsap.utils.toArray('.interlude-word').forEach((el,i)=>gsap.fromTo(el,{x:i?-100:0},{x:i?0:-120,ease:'none',scrollTrigger:{trigger:el.parentElement,start:'top bottom',end:'bottom top',scrub:.6}}))});
+const form=document.querySelector('#contact-form');if(form)form.addEventListener('submit',event=>{event.preventDefault();const fields=new FormData(form);const subject=language==='vi'?'Liên hệ dự án website':'Website project inquiry';const body=`${language==='vi'?'Tên':'Name'}: ${fields.get('name')}\n${language==='vi'?'Liên hệ':'Contact'}: ${fields.get('contact')}\n\n${fields.get('message')}`;window.location.href=`mailto:thienphuc203302@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`});
