@@ -20,6 +20,6 @@
 @media(max-width:380px){.contact h2{font-size:clamp(48px,15vw,65px)}}
 
 /* Keep touch targets usable and group contact actions on small screens. */
-@media(max-width:800px){.nav nav a{display:inline-flex;align-items:center;min-height:44px;font-size:10px}.email-actions{flex-direction:column;align-items:flex-start;gap:14px;margin-top:35px}.email-actions .email,.email-actions .copy-email{margin-top:0}.copy-email{min-height:44px}.contact-grid{gap:24px}.contact-social a,.downloads a{display:inline-flex;align-items:center;min-height:44px}.contact-social,.downloads{align-items:center;padding-top:10px}}
+@media(max-width:800px){#language{min-height:44px}.nav nav a{display:inline-flex;align-items:center;min-height:44px;font-size:10px}.email-actions{flex-direction:column;align-items:flex-start;gap:14px;margin-top:35px}.email-actions .email,.email-actions .copy-email{margin-top:0}.copy-email{min-height:44px}.contact-grid{gap:24px}.contact-social a,.downloads a{display:inline-flex;align-items:center;min-height:44px}.contact-social,.downloads{align-items:center;padding-top:10px}}
 @media(max-width:380px){.nav nav{gap:8px}.nav nav a{font-size:9px}}
 @media(hover:hover) and (prefers-reduced-motion:no-preference){.case-link span:last-child{transition:transform .2s ease}.case-link:hover span:last-child{transform:translate(4px,-4px)}.copy-email{transition:background-color .2s ease,color .2s ease}}
