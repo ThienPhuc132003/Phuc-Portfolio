@@ -6,3 +6,4 @@
 
 .project-top span:first-child{font-size:clamp(.9rem,1.2vw,1.1rem);font-weight:700}
 @media(max-width:800px){.hero-art{margin-bottom:2.5rem}.art-note{bottom:-2.5rem;left:0;max-width:none;transform:none}}
+@media(max-width:360px){.contact h2{font-size:3.3rem}}
